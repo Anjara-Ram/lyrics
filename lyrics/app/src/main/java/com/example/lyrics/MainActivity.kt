@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        numberList = (1..3).toList().toTypedArray()
-        titleList = arrayOf("Do", "Re", "Mi")
+        numberList = numberListData
+        titleList = titleListData
 
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.search)

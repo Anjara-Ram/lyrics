@@ -3,37 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/color1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color1"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.SearchView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:id="@+id/search"
+
+    <ImageView
+        android:id="@+id/ivCross"
+        android:layout_width="93dp"
+        android:layout_height="122dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:iconifiedByDefault="false"
-        app:searchHintIcon="@null"
-        app:queryHint="Rechercher...."
-        android:focusable="false"
-        app:searchIcon="@drawable/baseline_search_24"
-        app:closeIcon="@drawable/baseline_clear_24"
-        android:background="@drawable/search_bkg"/>
+        app:layout_constraintVertical_bias="0.043"
+        app:srcCompat="@drawable/cross" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="137dp"
+        android:layout_height="67dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="FIHIRANA CEIM"
+        android:textAlignment="center"
+        android:textColor="@color/color2"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivCross" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:elevation="10dp"
+        app:cardBackgroundColor="#DBCEB4"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:flow_horizontalBias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_bkg"
+            app:iconifiedByDefault="false"
+            app:queryHint="Rechercher..."
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        app:layout_constraintTop_toBottomOf="@+id/search"
+        android:layout_width="412dp"
+        android:layout_height="428dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/item_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/materialCardView"
+        tools:listitem="@layout/item_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
