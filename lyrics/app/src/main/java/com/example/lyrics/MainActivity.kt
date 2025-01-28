@@ -1,6 +1,7 @@
 package com.example.lyrics
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -10,14 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 
+import android.text.InputType
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<DataClass>
-    lateinit var numberList: Array<Int>
-    lateinit var titleList: Array<String>
-    private lateinit var searchView: SearchView
     private lateinit var searchList: ArrayList<DataClass>
+    private lateinit var numberList: Array<Int>
+    private lateinit var titleList: Array<String>
+    private lateinit var searchView: SearchView
+
+    private var filterByNumber = false // Default to filtering by title
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +42,28 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        dataList = arrayListOf<DataClass>()
-        searchList = arrayListOf<DataClass>()
+        dataList = arrayListOf()
+        searchList = arrayListOf()
         getData()
 
+        // Buttons
+        val btnNumber = findViewById<Button>(R.id.btn_number)
+        val btnTitle = findViewById<Button>(R.id.btn_title)
+
+        btnNumber.setOnClickListener {
+            filterByNumber = true
+            searchView.queryHint = "Rechercher par numero..."
+            searchView.inputType = InputType.TYPE_CLASS_NUMBER // Switch to numeric keypad
+        }
+
+        btnTitle.setOnClickListener {
+            filterByNumber = false
+            searchView.queryHint = "Rechercher par titre"
+            searchView.inputType = InputType.TYPE_CLASS_TEXT // Switch to text keyboard
+        }
+
         searchView.clearFocus()
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
                 return true
@@ -51,10 +72,20 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 searchList.clear()
                 val searchText = newText!!.toLowerCase(Locale.getDefault())
-                if (searchText.isNotEmpty()){
-                    dataList.forEach {
-                        if (it.dataTitle.toLowerCase(Locale.getDefault()).contains(searchText)){
-                            searchList.add(it)
+                if (searchText.isNotEmpty()) {
+                    if (filterByNumber) {
+                        // Filter by Number
+                        numberList.forEachIndexed { index, number ->
+                            if (number.toString().contains(searchText)) {
+                                searchList.add(DataClass(number, titleList[index]))
+                            }
+                        }
+                    } else {
+                        // Filter by Title
+                        titleList.forEachIndexed { index, title ->
+                            if (title.toLowerCase(Locale.getDefault()).contains(searchText)) {
+                                searchList.add(DataClass(numberList[index], title))
+                            }
                         }
                     }
                     recyclerView.adapter!!.notifyDataSetChanged()
@@ -65,10 +96,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 return false
             }
-
         })
-
-
     }
 
     private fun getData() {
