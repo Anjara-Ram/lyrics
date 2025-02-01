@@ -9,45 +9,59 @@
     tools:context=".MainActivity">
 
 
-    <ImageView
-        android:id="@+id/ivCross"
-        android:layout_width="93dp"
-        android:layout_height="122dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+    <TextView
+        android:id="@+id/noResultsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Aucune parole trouvée"
+        android:textColor="@color/color2"
+        android:textSize="@dimen/_20ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_buttons"
+        app:layout_constraintVertical_bias="0.176" />
+
+    <ImageView
+        android:id="@+id/ivCross"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintWidth_percent="0.3"
+        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/cross" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="137dp"
-        android:layout_height="67dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_black"
         android:text="FIHIRANA CEIM"
         android:textAlignment="center"
         android:textColor="@color/color2"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/_25ssp"
+        app:layout_constraintTop_toBottomOf="@+id/ivCross"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivCross" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_310sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
         android:elevation="10dp"
         app:cardBackgroundColor="#D5C8C0"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="@dimen/_20sdp"
         app:cardUseCompatPadding="true"
-        app:flow_horizontalBias="0.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/filter_buttons"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.8">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search"
@@ -55,59 +69,53 @@
             android:layout_height="wrap_content"
             android:background="@drawable/search_bkg"
             app:iconifiedByDefault="false"
-            app:queryHint="Rechercher par titre ..."
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="292dp" />
-
+            app:queryHint="Rechercher par titre ..." />
     </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/filter_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:id="@+id/btn_number"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_111sdp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="30dp"
             android:backgroundTint="@color/color2"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_semibold"
             android:text="par numero"
+            android:layout_marginRight="@dimen/_10sdp"
             android:textColor="@color/color1"
-            android:textSize="16dp" />
+            android:textSize="@dimen/_12ssp" />
 
         <Button
             android:id="@+id/btn_title"
-            android:layout_width="130dp"
+            android:layout_width="@dimen/_111sdp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             android:backgroundTint="@color/color2"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/roboto_semibold"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:text="par titre"
             android:textAllCaps="false"
             android:textColor="@color/color1"
-            android:textSize="16dp" />
+            android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="409dp"
-        android:layout_height="424dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="@dimen/_310sdp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:padding="@dimen/_2sdp"
         app:layout_constraintTop_toBottomOf="@+id/filter_buttons"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_layout" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
