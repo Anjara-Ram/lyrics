@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color1"
+    android:background="@drawable/background_lyrics"
     tools:context=".MainActivity">
 
 
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:elevation="10dp"
-        app:cardBackgroundColor="#DBCEB4"
+        app:cardBackgroundColor="#D5C8C0"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
         app:flow_horizontalBias="0.5"

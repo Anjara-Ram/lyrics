@@ -15,6 +15,8 @@ import java.util.Locale
 
 import android.text.InputType
 import android.widget.Adapter
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
