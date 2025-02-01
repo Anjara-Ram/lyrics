@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="@color/color1"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Title TextView -->
+        <TextView
+            android:id="@+id/title"
+            android:textColor="@color/color3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/roboto_black"
+            android:textSize="30sp"
+            android:text="Misaotra Anao 'zahay ry Ray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Lyrics (Couplet) TextView -->
+        <TextView
+            android:id="@+id/couplet"
+            android:textColor="@color/color3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:textAlignment="textStart"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="25sp"
+            android:text="@string/hira1"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

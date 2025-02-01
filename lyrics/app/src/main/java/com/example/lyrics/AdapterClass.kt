@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AdapterClass (private val dataList : ArrayList<DataClass>): RecyclerView.Adapter<AdapterClass.ViewHolderClass>() {
 
+    var onItemClick: ((DataClass) -> Unit)? = null
+
 
     class ViewHolderClass (itemView: View): RecyclerView.ViewHolder(itemView){
 
@@ -31,5 +33,9 @@ class AdapterClass (private val dataList : ArrayList<DataClass>): RecyclerView.A
         val currentItem = dataList[position]
         holder.rvNumber.text = currentItem.dataNumber.toString()
         holder.rvTitle.text = currentItem.dataTitle
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(currentItem)
+        }
     }
 }

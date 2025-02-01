@@ -1,5 +1,7 @@
 package com.example.lyrics
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -12,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 
 import android.text.InputType
+import android.widget.Adapter
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataList: ArrayList<DataClass>
     private lateinit var searchList: ArrayList<DataClass>
-    private lateinit var numberList: Array<Int>
-    private lateinit var titleList: Array<String>
+    lateinit var numberList: Array<Int>
+    lateinit var titleList: Array<String>
+    lateinit var coupletList: Array<String>
+    private lateinit var myAdapter: AdapterClass
     private lateinit var searchView: SearchView
 
     private var filterByNumber = false // Default to filtering by title
@@ -36,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         numberList = numberListData
         titleList = titleListData
+        coupletList = getHiraStringsArray(this)
 
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.search)
@@ -58,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         btnTitle.setOnClickListener {
             filterByNumber = false
-            searchView.queryHint = "Rechercher par titre"
+            searchView.queryHint = "Rechercher par titre..."
             searchView.inputType = InputType.TYPE_CLASS_TEXT // Switch to text keyboard
         }
 
@@ -77,14 +84,14 @@ class MainActivity : AppCompatActivity() {
                         // Filter by Number
                         numberList.forEachIndexed { index, number ->
                             if (number.toString().contains(searchText)) {
-                                searchList.add(DataClass(number, titleList[index]))
+                                searchList.add(DataClass(number, titleList[index], coupletList[index]))
                             }
                         }
                     } else {
                         // Filter by Title
                         titleList.forEachIndexed { index, title ->
                             if (title.toLowerCase(Locale.getDefault()).contains(searchText)) {
-                                searchList.add(DataClass(numberList[index], title))
+                                searchList.add(DataClass(numberList[index], title, coupletList[index]))
                             }
                         }
                     }
@@ -97,14 +104,38 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        myAdapter = AdapterClass(searchList)
+        recyclerView.adapter = myAdapter
+
+        myAdapter.onItemClick = {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("android", it)
+            startActivity(intent)
+
+        }
+
     }
 
     private fun getData() {
         for (i in numberList.indices) {
-            val dataClass = DataClass(numberList[i], titleList[i])
+            val dataClass = DataClass(numberList[i], titleList[i], coupletList[i])
             dataList.add(dataClass)
         }
         searchList.addAll(dataList)
         recyclerView.adapter = AdapterClass(searchList)
     }
+
+    private fun getHiraStringsArray(context: Context): Array<String> {
+        val hiraArray = Array(428) { "" } // Create an array with 428 empty strings
+        for (i in 1..428) {
+            val resId = context.resources.getIdentifier("hira$i", "string", context.packageName)
+            if (resId != 0) {  // Ensure the resource exists
+                hiraArray[i - 1] = context.getString(resId) // Fill the array
+            }
+        }
+        return hiraArray
+    }
+
+
 }

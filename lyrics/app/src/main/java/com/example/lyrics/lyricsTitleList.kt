@@ -1,8 +1,5 @@
 package com.example.lyrics
 
-var numberListData = (1..428).toList().toTypedArray()
-
-
 var titleListData = arrayOf(
     "Misaotra Anao 'zahay Ry Ray",//1
     "Isaorana anie Andriamanintsika",//2
@@ -212,7 +209,7 @@ var titleListData = arrayOf(
     "Efa tonga aty izao (FFPM 357)",//206
     "Ny teninao rehetra (FFPM 205)",//207
     "Tenin' i Kristy no ianteherako",//208
-    "ZAva-tsoa (FFPM 210)",//209
+    "Zava-tsoa (FFPM 210)",//209
     "Amboninao Jeso",//210
     "Endrika sariaka (FFPM 430)",//211
     "Masina ny lanitra ",//212
@@ -434,3 +431,7 @@ var titleListData = arrayOf(
     "Misandrata",//428
 
 )
+var numberListData = (1..titleListData.size).toList().toTypedArray()
+
+
+
