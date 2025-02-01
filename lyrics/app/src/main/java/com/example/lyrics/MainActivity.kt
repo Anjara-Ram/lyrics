@@ -3,6 +3,7 @@ package com.example.lyrics
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.Locale
 
 import android.text.InputType
+import android.view.View
 import android.widget.Adapter
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import kotlin.concurrent.thread
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,12 +31,16 @@ class MainActivity : AppCompatActivity() {
     lateinit var coupletList: Array<String>
     private lateinit var myAdapter: AdapterClass
     private lateinit var searchView: SearchView
+    private lateinit var noResultsText: TextView
 
     private var filterByNumber = false // Default to filtering by title
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:   Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -48,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.search)
+        noResultsText = findViewById(R.id.noResultsText)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
@@ -99,10 +106,19 @@ class MainActivity : AppCompatActivity() {
                     }
                     recyclerView.adapter!!.notifyDataSetChanged()
                 } else {
-                    searchList.clear()
                     searchList.addAll(dataList)
-                    recyclerView.adapter!!.notifyDataSetChanged()
                 }
+
+                // Updating UI based on search results
+                if (searchList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    noResultsText.visibility = View.VISIBLE
+                } else {
+                    recyclerView.visibility = View.VISIBLE
+                    noResultsText.visibility = View.GONE
+                }
+
+                recyclerView.adapter!!.notifyDataSetChanged()
                 return false
             }
         })
